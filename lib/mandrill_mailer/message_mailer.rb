@@ -105,7 +105,8 @@ module MandrillMailer
     end
 
     def deliver_later(options={})
-      MandrillMailer::MandrillMessageJob.set(options).perform_later(message, async, ip_pool, send_at, self.class.name)
+      api_key = options.delete(:api_key)
+      MandrillMailer::MandrillMessageJob.set(options).perform_later(message, async, ip_pool, send_at, api_key, self.class.name)
     end
   end
 end
